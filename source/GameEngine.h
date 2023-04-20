@@ -2,8 +2,15 @@
 #include<SDL.h>
 #include<iostream>
 #include<stdlib.h>
+
+#include<stdlib.h>
 #include<time.h>
 #include"GameObject.h"
+#include"InputManager.h"
+#include"MenuScene.h"
+#include "GamePlayScene.h"
+#include "HighScoreScene.h"
+
 
 class GameEngine {
 public:

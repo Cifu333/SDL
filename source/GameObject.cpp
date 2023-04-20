@@ -6,7 +6,7 @@ GameObject::GameObject(SDL_Renderer* renderer) {
 	scale = Vector2(1.f, 1.f);
 
 	//cargar texturas
-	SDL_Surface* surf = IMG_Load("resources/911.png");
+	SDL_Surface* surf = IMG_Load("resources/asteroids.png");
 	if (surf == nullptr) {
 		std::cout << "Cannot load surfaces:" << SDL_GetError();
 	}
@@ -16,6 +16,12 @@ GameObject::GameObject(SDL_Renderer* renderer) {
 	}
 
 	SDL_FreeSurface(surf);
+
+	
+}
+
+GameObject::~GameObject() {
+	SDL_DestroyTexture(texture);
 }
 
 void GameObject::Update(float dt) {
@@ -24,10 +30,20 @@ void GameObject::Update(float dt) {
 
 void GameObject::Render(SDL_Renderer* renderer) {
 
-	SDL_Rect source{ 0,0,637/2,475/2 };
+	position = Vector2(100.0f, 100.0f);
+	rotation += 1.0f;
 
-	SDL_Rect destination{100,100,100,100};//x-y-w-h
 
-	SDL_RenderCopy(renderer, texture, &source, &destination);
+	SDL_Rect source{ 0,0,31,39 };
+
+	SDL_Rect destination{
+		position.x - (source.w * scale.x) /2,
+		position.y - (source.h * scale.y) /2,
+		(source.w * scale.x),
+		(source.h * scale.y) };//x-y-w-h
+
+	
+
+	SDL_RenderCopyEx(renderer, texture, &source, &destination, rotation, NULL, SDL_FLIP_NONE);
 
 }
