@@ -86,9 +86,16 @@ void GameEngine::Update() {
 			dt -= frameTime;
 		}
 	}
+	currentScene->Exit();
+
+	for (auto it = gameScenes.begin(); it != gameScenes.end(); it++ ) {
+		delete it->second;
+	}
 }
 
 void GameEngine::Finish() {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+
+
 }

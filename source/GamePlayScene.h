@@ -2,7 +2,7 @@
 
 
 #include "Scene.h"
-#include "InputManager.h"
+#include "Spaceship.h"
 
 class GamePlayScene : public Scene {
 
