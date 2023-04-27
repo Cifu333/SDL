@@ -1,62 +1,57 @@
 #include "Spaceship.h"
 
 Spaceship::Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl) 
-	:GameObject(renderer) {
+	:GameObject(renderer, 31, 39, Vector2(0,0)) {
 	position = pos;
 	rotation = rot;
 		scale = scl;
+
+		velocity =Vector2();
+		 angularVelocity = 0.0f;
+
+		 acceleration = Vector2();
+		 angularAcceleration = 0.0f;
+
+		 linearDrag = 1.2 ;
+		 angularDrag = 6.0f;
+
+		 accelerationFactor = 500.0f;  //px / sec^
+		 angularAccelerationFactor = 180000.0f; //Degs /sec^2
+
 }
 
-void Spaceship::Update(float dt) {
-	UpdateMovemeent(dt);
 
-}
 
-void Spaceship::UpdateMovemeent(float dt) {
+void Spaceship::UpdateMovement(float dt) {
 
+	acceleration = Vector2();
 
 	if (IM.GetKey(UP, HOLD) || (IM.GetKey(SDLK_UP, DOWN))) {
 		Vector2 dir;
+
+		acceleration = Vector2();
 
 		float rotationInRadians = rotation * (M_PI / 180.f);
 
 		dir.x = cos(rotationInRadians);
 		dir.y = sin(rotationInRadians);
 
-		velocity = velocity + (dir * dt * 100.f);
+		acceleration = dir * accelerationFactor;
 	
 	}
 
-
-	if (IM.GetKey(SDLK_RIGHT, HOLD) || (IM.GetKey(SDLK_RIGHT, HOLD))) {
-		rotation += dt * 180; //units ºsegundo
+	angularAcceleration = 0;
+	if (IM.GetKey(SDLK_RIGHT, HOLD) || IM.GetKey(SDLK_RIGHT, HOLD)) {
+		angularAcceleration = dt *  angularAccelerationFactor ; //units ºsegundo
 	}
 
 
-	if (IM.GetKey(SDLK_LEFT, HOLD) || (IM.GetKey(SDLK_LEFT, HOLD))) {
-		rotation -= dt * 180; //units ºsegundo
+	if (IM.GetKey(SDLK_LEFT, HOLD) || IM.GetKey(SDLK_LEFT, HOLD)) {
+		angularAcceleration = dt * - angularAccelerationFactor; //units ºsegundo
 	}
+	GameObject::UpdateMovement(dt);
 
-	Vector2 velocityDT = velocity * dt;
-	position = position + velocityDT;
 }
 
-void Spaceship::Render(SDL_Renderer* rend){
 
-	SDL_Rect source;
-	source.x = 0;
-	source.y = 0;
-	source.w = 31;
-	source.h = 39;
 
-	SDL_Rect dest;
-	dest.x = position.x - (int)((float)source.w *scale.x / 2.0f);
-	dest.y = position.y - (int)((float)source.h * scale.x / 2.0f);
-	dest.w = (float)source.w * scale.x;
-	dest.h = (float)source.h * scale.y;
-
-	SDL_RenderCopyEx(rend , texture,
-		&source, &dest,
-		rotation + 90, NULL, //Punto de rotacion NULL = centrado)
-		SDL_FLIP_NONE);// No hacemos fila
-}
