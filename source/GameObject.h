@@ -13,7 +13,13 @@ public:
 	virtual void Update(float dt);
 	virtual void Render(SDL_Renderer* renderer);
 
+	virtual void Destroy(){ pendingDestroy = true; };
+	bool IsPendingDestroy(){ return pendingDestroy; };
+
+	Vector2 GetPosition() { return position; }
 protected:
+
+	bool pendingDestroy = false;
 
 	void ClampPosition();
 	virtual void UpdateMovement(float dt);

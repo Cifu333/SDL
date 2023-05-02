@@ -48,6 +48,9 @@
     <ClCompile Include="source\Spaceship.cpp">
       <Filter>Source Files\GameEngine</Filter>
     </ClCompile>
+    <ClCompile Include="source\Asteroid.cpp">
+      <Filter>Source Files\GameEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\GameEngine.h">
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="source\Utils.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Asteroid.h">
+      <Filter>Header Files\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

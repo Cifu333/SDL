@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
 GameObject::GameObject(SDL_Renderer* renderer, int w, int h, Vector2 pad)
-	: width(w), heigth(h)
+	: width(w), heigth(h), paddin(pad)
 	{
 	position = Vector2();
 	rotation = 0;

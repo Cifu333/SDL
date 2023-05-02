@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "Spaceship.h"
+#include "Asteroid.h"
 
 class GamePlayScene : public Scene {
 
@@ -13,4 +14,7 @@ public:
 	void Update(float dt) override;
 	void Render(SDL_Renderer* rend) override;
 	void Exit() override;
+
+private:
+	Spaceship* spaceship;
 };
